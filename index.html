@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 
 <html>
+
     <head>
         <link rel="stylesheet" type="text/css" href="css/appstyle.css">
-        <!--  Include the raphael library from the jslibs directory  -->
+
         <script type="text/javascript" src="jslibs/raphael.js"></script>
-        <!--  Use the require.js module loader, and tell it where our main JavaScript file is  -->
-        <script type="text/javascript" data-main="appscripts/main.js" src="jslibs/require.js"> </script>
-        <title>flexbox layout</title>
+
+        <script type="text/javascript" data-main="appscripts/main.js" src="jslibs/require.js">
+        </script>
     </head>
 
-  <body>
-    <header>Nice Layout </header>
-    <div id='main'>
+    <body>
 
-        <div id="centerDiv"> </div>  <!--  <article>   article  </article> -->
+        <div style='overflow:hidden; width:658px;' id="noscroll"><div id="mySVGCanvas"></div></div>
+        <div id="paper2"></div> 
+        <div id="paper3"></div>
+        <div id="paper4"></div>
+        <div id="paper5"></div>
+        <div id="close"></div>
+        <video width="80%" id="video">
+            <source src="css/resources/video.mp4" type="video/mp4">
+        </video>           
+        <div id="play"></div>
+            <div id="myGreen"></div>
 
-        <nav> Info
-            <p>Click anywhere within the box of circles and watch what happens!</p>
-        </nav>
 
-        <aside>Workspace</aside>
+            </div>
+        
+        <nav> </nav>
 
-    </div>
-    <footer>Credits:
-        <p> Done by Margaret and Sherlyn</p>
-    </footer>
-  </body>
+        <aside></aside>
+
+        </div>
+
+
+    </body>
 </html>
-

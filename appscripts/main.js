@@ -2,133 +2,247 @@ require(
    // Use this library to "fix" some annoying things about Raphel paper and graphical elements:
     //     a) paper.put(relement) - to put an Element created by paper back on a paper after it has been removed
     //     b) call element.addEventListener(...) instead of element.node.addEventListner(...)
-    ["../jslibs/raphael.lonce"],  // include a custom-built library
-
+    [],  // include a custom-built library
     function () {
 
-    	console.log("Yo, I am alive!");
+        console.log("yo, I'm alive!");
 
-        // Grab the div where we will put our Raphael paper
-        var centerDiv = document.getElementById("centerDiv");
+        var paper = Raphael("mySVGCanvas", 1200,2000);
+        var paper2 = Raphael("paper2", 478,1024);
+        var paper3 = Raphael("paper3", '100%', '100%');
+        var paper4 = Raphael("paper4", '100%', '100%');
+        var paper5 = Raphael("paper5", '100%', '100%');
 
-        // Create the Raphael paper that we will use for drawing and creating graphical objects
-        var paper = new Raphael(centerDiv);
-
-        // put the width and heigth of the canvas into variables for our own convenience
         var pWidth = paper.canvas.offsetWidth;
         var pHeight = paper.canvas.offsetHeight;
-        console.log("pWidth is " + pWidth + ", and pHeight is " + pHeight);
-        //---------------------------------------------------------------------
+        console.log(pWidth);
+        console.log(pHeight);
 
-        // assign6.1 Just create background
-        var bgRect = paper.rect(0,0,pWidth, pHeight);
-        bgRect.attr({"fill": "lightcyan"});
+        var skip = paper4.rect(20,20,20,10);
+        console.log("skip appears");
+        skip.attr({
+            "fill": "red"
+        });
 
+        var title = paper5.image("css/resources/title.png", 0, 0, 698, 171);
 
-        //creates a function map(x,a,b,m,n) that takes a variable (x) in the range [a,b[, then returns a value mapped into the range [m,n]
-        var x, a, b, m, n;
-        var map = function(x,a,b,m,n){
-        	return (x-a)/(b-a) * (n-m) + m;
+        var play = document.getElementById("play");
+        play.addEventListener('mousemove', function(ev){
+            play.style.cursor="pointer";
+        })  
+
+        var video = document.getElementById("video");
+
+        var tree = paper.image("css/resources/fileS.jpg", 300, 1500, 315, 205.5);
+        tree.node.addEventListener('mousemove', function(ev){
+            tree.node.style.cursor = "pointer";
+        });
+
+        var pic1 = paper.image('css/resources/pic1.png', 800,79,228,287);
+        pic1.node.addEventListener('mousemove', function(ev){
+            pic1.node.style.cursor = "pointer";
+        });
+        pic1.attr({
+            'opacity':0
+        });
+
+        var pic2 = paper.image('css/resources/pic2.png', 345,829,211,278);
+        pic2.node.addEventListener('mousemove', function(ev){
+            pic2.node.style.cursor = "pointer";
+        });       
+
+        var pic3 = paper.image('css/resources/pic3.png', 565,829,197,245);
+        pic3.node.addEventListener('mousemove', function(ev){
+            pic3.node.style.cursor = "pointer";
+        });
+
+        var pic4 = paper.image('css/resources/pic4.png', 140,139,220,538);
+        pic4.node.addEventListener('mousemove', function(ev){
+            pic4.node.style.cursor = "pointer";
+        });
+        pic4.attr({
+            'opacity':0
+        }); 
+
+        var pic5 = paper.image('css/resources/pic5.png', 450,139,146,492);
+        pic5.node.addEventListener('mousemove', function(ev){
+            pic5.node.style.cursor = "pointer";
+        });
+         pic5.attr({
+            'opacity':0
+        });        
+
+        function main (){
+            console.log("main page");
+            tree.show();
+            title.show();
+            pic1.show();
+            pic2.show();
+            pic3.show();
+            pic4.show();
+            pic5.show();
+            video.style.visibility = "hidden"; 
         }
 
+        function hide (){
+            console.log("hide all");
+            tree.hide();
+            title.hide();
+            pic1.hide();
+            pic2.hide();
+            pic3.hide();
+            pic4.hide();
+            pic5.hide();
+            video.style.visibility = "hidden"; 
+        }
+
+        tree.hide();
+        title.hide();
+        document.getElementById("mySVGCanvas").style.overflow = "hidden";
+        document.getElementById("paper2").style.visibility = "hidden";
+        video.style.visibility = "hidden";
+
+        //document.getElementById("mySVGCanvas").style.opacity = 0;
+        document.getElementById("paper3").style.opacity = 1;
+        document.getElementById("paper5").style.opacity = 0;
         
-
-        var myCircleArray = []; //creates an array
-
-        var length = 100; //sets array length to 100 (array of 100 dots)
-		
-        for(i=0; i< length; i++){ //loop statement
-        	var dots = myCircleArray[i] = paper.circle(pWidth/2, pHeight/2, 20); //creates an array of circles 
-            var H = Math.random(); //takes a random number in the range [0,1]
-            var S = Math.random(); //takes a random number in the range [0,1]
-            var L = Math.random(); //takes a random number in the range [0,1]
-            //hsl function for raphael taking in H, S, L values generated earlier
-            var colour = Raphael.hsl( H, S, L);
-           	
-            console.log(colour); //prints the HSL values of each dot to the console
-        	
-        	dots.attr({
-        		'fill-opacity': 0.5, //makes the dots semi-transparent
-                'fill': colour //fills dots with colour specified by the above colour string
-        	});
-
-        	dots.xpos=pWidth/2; 
-        	dots.ypos=pHeight/2; //sets initial position of dots to centre
-        	dots.xrate=5;
-        	dots.yrate=5; //sets initial rate of dots to 4
-        	dots.yrate = map(Math.random(),0,1,-10,10); 
-        	dots.xrate = map(Math.random(),0,1,-10,10); //assigns a random rate to each dot in the array
-        }
-         console.log("number of dots:" + myCircleArray.length); //prints number of dots in the array to the console, we expect the value to be 100
-
-        var mouseIsDown=false; //set variable mouseIsDown to keep track of mouse state
-
-        var rectMouse = paper.rect(0,0,pWidth, pHeight); //creates a graphical object to listen for mouse events
-        rectMouse.attr({
-        	"fill": "white", 
-        	'fill-opacity': 0 //fills rectMouse to make it completely transparent
-        });
-
-
-        //creates a function  that takes 4 variables (x1, y1, x2, y2) and returns the distance between the two points (x1, y1), (x2, y2)
-        var distance = function(x1,y1,x2,y2){ 
-            return Math.sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) );
+        function unfade() {
+            document.getElementById("paper3").style.opacity = 0;
+            document.getElementById("paper3").style.transition = "opacity 5s";
+            //document.getElementById("mySVGCanvas").style.transition = "opacity 5s"; 
+            //document.getElementById("mySVGCanvas").style.opacity = 1;
+            document.getElementById("paper5").style.opacity = 1;
+            document.getElementById("paper5").style.transition = "opacity 5s";
         }
 
-        rectMouse.addEventListener("mousedown", function(ev){ //listens for mousedown on rectMouse
-        	mouseIsDown=true; 
-        	var mousex = ev.offsetX; 
-        	var mousey = ev.offsetY; //grabs the position where mouse is down
-        	console.log("mousedown on " + mousex + ", " + mousey); //prints position where mouse is down to the console 
+        skip.node.addEventListener('click', function(ev){
+            document.getElementById("mySVGCanvas").style.overflow = "auto";
+            main();
+            play.style.visibility = "hidden";
+            //document.getElementById("video").pause(); 
+            video.style.visibility = "hidden"; 
+
+                var fadeAudio = setInterval(function () {          
+                    if (document.getElementById("video").currentTime >= 0) {
+                        document.getElementById("video").volume -= 0.1;
+                    }
+                }, 200);
             
-            for(i=0; i< length; i++){ //listen to event for the respective dots using a loop statement
-            	var dots = myCircleArray[i]; 
+                setTimeout(function(){
+                    document.getElementById("video").pause();
+                    clearInterval(fadeAudio); 
+                }, 2000);
+           
+            unfade();
+            document.getElementById("paper4").style.visibility = "hidden";
+            console.log("skip");
 
-            	if (distance(mousex,mousey,dots.xpos,dots.ypos) <= 100) { //if dots are less than 100 pixels in distance from the mouse when it is pushed
-            		dots.attr({
-            			"fill": "white",
-            			'fill-opacity': 1 //changes colour of dots to white and makes them opaque
-            		});
-            	}
-            }            
+            setTimeout(function(){
+                pic4.animate({
+                    'opacity': 1
+                }, 2000);
+            },2000);
+            
+            setTimeout(function(){
+                pic5.animate({
+                    'opacity': 1
+                }, 2000);
+            },4000);
+
+            setTimeout(function(){
+                pic1.animate({
+                    'opacity': 1
+                }, 2000);
+            },6000);
+                  
         });
 
-        //listen to mouseup on rectMouse
-        rectMouse.addEventListener('mouseup', function(ev){
-        	mouseIsDown = false;
-        	console.log("mouseup on " + ev.offsetX + ", " + ev.offsetY); //prints position where mouse is up to the console
-        });         
+        var play = document.getElementById("play");
+        play.addEventListener('click', function(ev){
+            video.style.visibility = "visible";
+            play.style.visibility = "hidden";
+            document.getElementById("video").play(); 
 
+                var enter = setTimeout(function(){
+                    console.log("timer works");
+                    video.addEventListener('mousemove', function(ev){
+                        video.style.cursor="pointer";
+                    }) 
+                    video.addEventListener('click', function(ev){
+            document.getElementById("mySVGCanvas").style.overflow = "auto";
+            main();
+            play.style.visibility = "hidden";
+            //document.getElementById("video").pause(); 
+            video.style.visibility = "hidden"; 
 
-        // assign6.2: For counting calls to the 'draw' routine
-        var count=0;
-
-        // assign6.2: our drawing routine, will use as a callback for the interval timer
-        var draw = function(){
-
-            //counts and keeps track of the number of times the function draw is called
-            count++;
-
-            //assign6.7: Update the position where we want our dots to be
-            //make the dots move
-            for(i=0; i< length; i++){
-            	var dots = myCircleArray[i];
-            	dots.xpos += dots.xrate;
-            	dots.ypos += dots.yrate;
-
-            //keeps track of position of the dots
-            dots.attr({'cx': dots.xpos, 'cy': dots.ypos});
+                var fadeAudio = setInterval(function () {          
+                    if (document.getElementById("video").currentTime >= 0) {
+                        document.getElementById("video").volume -= 0.1;
+                    }
+                }, 200);
+            
+                setTimeout(function(){
+                    document.getElementById("video").pause();
+                    clearInterval(fadeAudio); 
+                }, 2000);
            
-           //reverses the appropriate rate when dot moves outside the box such that it bounces off instead of moving off-screen
-            if (dots.xpos > pWidth) {dots.xrate = -dots.xrate;}
-            if (dots.ypos > pHeight) {dots.yrate = - dots.yrate};
-            if (dots.xpos < 0) {dots.xrate = -dots.xrate;}
-            if (dots.ypos < 0) (dots.yrate = - dots.yrate); 
-        }
-    }       
+            unfade();
+            document.getElementById("paper4").style.visibility = "hidden";
+            console.log("skip");
 
-        // assign6.3: call draw() periodically
-        // We do this last thing as the module loads
-        setInterval(draw, 20);
+            setTimeout(function(){
+                pic4.animate({
+                    'opacity': 1
+                }, 2000);
+            },2000);
+            
+            setTimeout(function(){
+                pic5.animate({
+                    'opacity': 1
+                }, 2000);
+            },4000);
 
-    });
+            setTimeout(function(){
+                pic1.animate({
+                    'opacity': 1
+                }, 2000);
+            },6000);                                                                    
+                    })
+                }, 67700);        
+        });
+
+        tree.node.addEventListener('click', function(ev){ 
+            console.log("click files");
+            document.getElementById("mySVGCanvas").style.visibility = "hidden";
+            document.getElementById("paper2").style.visibility = "visible";
+            document.getElementById("paper5").style.visibility = "hidden";
+            var long = paper2.image("css/resources/long.jpg", 0, 0, 478, 1024);
+            var close = document.getElementById("close");
+            close.style.backgroundImage = "url('css/resources/exit.png')";
+            close.style.visibility = "visible";
+            close.style.marginLeft = "-239px";
+            close.style.marginTop = "-300px";
+            close.addEventListener('mousemove', function(ev){
+                close.style.cursor = "pointer";
+            });            
+            close.addEventListener('click', function(ev){
+                console.log("click on exit");
+                document.getElementById("paper2").style.visibility = "hidden";
+                close.style.visibility = "hidden";
+                document.getElementById("mySVGCanvas").style.visibility = "visible";
+                document.getElementById("paper5").style.visibility = "visible";
+            });            
+        });
+
+        //window.addEventListener("keydown", function(e) {
+            // space, page up, page down and arrow keys:
+        //    if([32, 33, 34, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        //    e.preventDefault();
+        //    }
+        //}, false); //from http://stackoverflow.com/questions/16637031/completely-disable-scrolling-of-webpage
+
+    }
+);
+
+//video sound fade out
+//first page elements fade in

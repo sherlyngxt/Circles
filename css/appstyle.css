@@ -1,102 +1,222 @@
 html, body {  /* Select and size the outermost elements so other elements can be set in % */
-	height:100%;
-	width:99%;
+height:100%;
+width:100%;
 }
 
+#mySVGCanvas{
+  width: 1200px;
+  height: 650px;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 180px; 
+  margin-left: -600px;
+  z-index: 0;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+#myGreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin:auto;
+  background: center center no-repeat;
+  background-attachment: fixed; 
+  z-index: -2;  
+} 
+
 body {
-   font: 24px Helvetica;
-   background-color: grey;
-  }
+overflow:hidden;
+background: url("resources/back.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
-  #main {  /* select element with id="main" */ 
-   min-height: 70%;
-   max-height: 70%;
-   margin: 0px;
-   padding: 0px;
-   display:  flex;
-   flex-flow: row;
-   }
- 
-  #main > article { /* select articles (if they are inside the element with id="main") */ 
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #cccc33;
-   border-radius: 7pt;
-   background: #dddd88;
-   flex: 3 1 50%;
-   order: 2;
-   overflow: scroll;
-   }
+#play {
+  background: url("resources/play.png");
+  background-repeat: no-repeat;
+  position: fixed;
+  width:200px;
+  height:200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
 
-  #main > #centerDiv {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #cccc33;
-   border-radius: 7pt;
-   background: #dddd88;
-   flex: 3 1 50%;
-   order: 2;
-   overflow: scroll;
-   text-align: center;
-   }
+#video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
 
-  #main > nav {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #8888bb;
-   border-radius: 7pt;
-   background: #ccccff;
-           flex: 1 6 15%;
-           order: 1;
-   }
-  
-  #main > aside {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #8888bb;
-   border-radius: 7pt;
-   background: #ccccff;
-           flex: 1 6 15%;
-           order: 3;
+.center{
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  overflow:scroll;
+}
 
-   }
- 
-  header, footer {  /* select all header and footer elements */
-   display: block;
-   margin: 4px;
-   padding: 5px;
-   min-height: 10%;
-   border: 1px solid #eebb55;
-   border-radius: 7pt;
-   background: #ffeebb;
-   text-align: center;
-   }
+.centerH{
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  overflow: auto;
+}
 
-  footer {    /* override these attributes just for the footer elements */
-   font-size: 10pt;
-   text-align: left;
-   }
+#paper2{
+  width: 478px;
+  height: 600px;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+  margin-left: -239px;
+  margin-top: -300px;
+  z-index: 0;
+}
+
+#paper3{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin:auto;
+  background: center center no-repeat;
+  background-attachment: fixed;
+  background-color: black; 
+  z-index: -1; 
+}
+
+#paper4{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  margin:auto;
+  background: center center no-repeat;
+  background-attachment: fixed;
+  z-index: 0; 
+}
+
+#paper5{
+  position: fixed;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  background-attachment: fixed;
+  overflow: auto;
+  z-index:0;
+  width:698px;
+  height:171px;
+  z-index:-1;
+}
+
+#close {
+  background-repeat: no-repeat;
+  overflow: auto;
+  margin: auto;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%; 
+  width: 50px;
+  height: 50px;
+}
 
 
- 
-  /* Changes layout under these conditions : Too narrow to support three columns */
-  /* "at-rules" using the '@' sign is an "advanced" feature */ 
-  @media all and (max-width: 640px) {
-  
-   #main, #page {
-    flex-flow: column;
-    flex-direction: column;
-   }
 
-   #main > article, #main > nav, #main > aside {
-    /* Return them to document order */
-            order: 0;
-   }
-  
-   #main > nav, #main > aside, header, footer {
-    min-height: 50px;
-    max-height: 50px;
-   }
-  
-};
+/*.fixed-center
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
 
+/*.centre {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* body {
+  background: url("resources/background.jpg") center center no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+/* #myGreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("resources/background.jpg") center center no-repeat;
+  background-attachment: fixed; 
+  z-index: -2;  
+}
+
+
+/* #myBlack {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;  
+  height: 100%;
+  background: #000000;
+  z-index: -1;
+}
+
+
+
+/* 
+#mySVGCanvas {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 300%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: scroll;
+  margin:auto;
+}
+
+#box {
+  width: 600px;
+  height: 500px;
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
